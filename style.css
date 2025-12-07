@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root {
+    --bg: #0b1224;
+    --panel: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.12);
+    --accent: #38bdf8;
+    --text: #e5e7eb;
+    --clock-size: min(78vw, 400px);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,95 +16,166 @@
 }
 
 body {
-    display: flex;
     min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #333;
-    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.08), transparent 30%),
+                radial-gradient(circle at 80% 0%, rgba(167, 139, 250, 0.08), transparent 25%),
+                linear-gradient(145deg, #0f172a, #0b1224 50%, #070b18);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    padding: 32px;
+}
+
+.clock-container {
+    width: min(520px, 95vw);
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    text-align: center;
 }
 
 h1 {
-    color: #FFF;
-    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .relogio {
-    width: 300px;
-    height: 300px;
-    border: 5px solid #FFF;
+    width: var(--clock-size);
+    height: var(--clock-size);
+    position: relative;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background: radial-gradient(circle at 50% 45%, #11182c, #0c1326 55%, #0a1021);
+    border: 12px solid var(--border);
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.45),
+        inset 0 0 30px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    overflow: hidden;
 }
 
 .riscos {
     width: 100%;
     height: 100%;
+    position: relative;
     padding-left: 50%;
     padding-top: 50%;
-    margin-top: -6px;
 }
+
 .risco {
-    width: 145px;
-    height: 5px;
+    width: 50%;
+    height: 6px;
     position: absolute;
     transform-origin: left;
     display: flex;
     justify-content: flex-end;
+    opacity: 0.8;
 }
+
 .risco .ponto {
-    width: 15px;
+    width: 14px;
     height: 100%;
-    background-color: #FFF;
+    background: linear-gradient(90deg, transparent, #fff);
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+}
+
+.numeros {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    font-weight: 700;
+    color: rgba(229, 231, 235, 0.9);
+    text-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+}
+
+.numero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: clamp(14px, 2.5vw, 18px);
+    transform: translate(-50%, -50%) rotate(var(--angle)) translate(calc(var(--clock-size) / 2 - 32px)) rotate(calc(var(--angle) * -1));
 }
 
 .ponteiros {
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
     padding-left: 50%;
     padding-top: 50%;
-    margin-top: -100%;
+    pointer-events: none;
 }
+
 .p {
     transform-origin: left;
     transform: rotate(0deg);
-    border-radius: 50%;
+    border-radius: 999px;
     position: absolute;
+    backdrop-filter: blur(1px);
 }
 
 .p_s {
-    width: 100px;
+    width: 44%;
     height: 3px;
-    background-color: #F00;
+    background: linear-gradient(90deg, transparent 0%, var(--accent) 30%, #22d3ee 90%);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.55);
 }
+
 .p_m {
-    width: 120px;
-    height: 7px;
-    background-color: #FFF;
+    width: 38%;
+    height: 6px;
+    background: #e8ecf4;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
 }
+
 .p_h {
-    width: 70px;
-    height: 10px;
-    background-color: #FFF;
+    width: 26%;
+    height: 8px;
+    background: #cbd5e1;
+    box-shadow: 0 0 10px rgba(203, 213, 225, 0.25);
 }
+
 .encaixe {
-    width: 20px;
-    height: 20px;
-    background-color: #FFF;
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle at 30% 30%, #fff, #9ca3af);
+    border: 2px solid rgba(255, 255, 255, 0.18);
     border-radius: 50%;
     position: absolute;
-    margin-top: -5px;
-    margin-left: -5px;
+    margin-top: -9px;
+    margin-left: -9px;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.55),
+        0 0 10px rgba(255, 255, 255, 0.18);
 }
+
 .digital {
-    color: #FFF;
-    font-size: 40px;
-    margin-top: 20px;
+    width: 100%;
+    display: grid;
+    gap: 6px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+}
+
+.digital .time {
+    font-size: clamp(32px, 5vw, 42px);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.digital .date {
+    font-size: 15px;
+    color: rgba(229, 231, 235, 0.75);
+    text-transform: capitalize;
 }
 
 footer {
-    margin-top: 20px;
-    color: #FFF;
     font-size: 13px;
+    color: rgba(229, 231, 235, 0.65);
 }
